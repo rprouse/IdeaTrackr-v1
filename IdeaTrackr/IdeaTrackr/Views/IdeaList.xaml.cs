@@ -1,10 +1,5 @@
-﻿using IdeaTrackr.Models;
-using Microsoft.WindowsAzure.MobileServices;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
@@ -19,8 +14,8 @@ namespace IdeaTrackr.Views
 
         public async void OnButtonClicked(object sender, EventArgs e)
         {
-            var client = new MobileServiceClient("http://localhost:60978/");
-            var ideas = await client.GetTable<Idea>().ReadAsync();
+            var service = App.GetIdeaService();
+            var ideas = await service.GetIdeas();
             message.Text = ideas.First().Name;
         }
     }
