@@ -121,7 +121,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.ServiceBus">
-      <HintPath>..\packages\WindowsAzure.ServiceBus.2.3.4.0\lib\net40-full\Microsoft.ServiceBus.dll</HintPath>
+      <HintPath>..\packages\WindowsAzure.ServiceBus.2.7.6\lib\net40-full\Microsoft.ServiceBus.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -129,15 +129,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Mobile.Service, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.1.0.390\lib\net45\Microsoft.WindowsAzure.Mobile.Service.dll</HintPath>
+      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.1.0.470\lib\net45\Microsoft.WindowsAzure.Mobile.Service.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Mobile.Service.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.Entity.1.0.390\lib\net45\Microsoft.WindowsAzure.Mobile.Service.Entity.dll</HintPath>
+      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.Entity.1.0.470\lib\net45\Microsoft.WindowsAzure.Mobile.Service.Entity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Mobile.Service.Tables, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.Tables.1.0.390\lib\net45\Microsoft.WindowsAzure.Mobile.Service.Tables.dll</HintPath>
+      <HintPath>..\packages\WindowsAzure.MobileServices.Backend.Tables.1.0.470\lib\net45\Microsoft.WindowsAzure.Mobile.Service.Tables.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -221,8 +221,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\TodoItemController.cs" />
-    <Compile Include="DataObjects\TodoItem.cs" />
+    <Compile Include="Controllers\IdeaController.cs" />
+    <Compile Include="DataObjects\Idea.cs" />
     <Compile Include="Models\MobileServiceContext.cs" />
     <Compile Include="ScheduledJobs\SampleJob.cs" />
     <Compile Include="Global.asax.cs">

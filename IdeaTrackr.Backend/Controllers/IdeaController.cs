@@ -9,42 +9,42 @@ using IdeaTrackr.Backend.Models;
 
 namespace IdeaTrackr.Backend.Controllers
 {
-    public class TodoItemController : TableController<TodoItem>
+    public class IdeaController : TableController<Idea>
     {
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
             MobileServiceContext context = new MobileServiceContext();
-            DomainManager = new EntityDomainManager<TodoItem>(context, Request, Services);
+            DomainManager = new EntityDomainManager<Idea>(context, Request, Services);
         }
 
-        // GET tables/TodoItem
-        public IQueryable<TodoItem> GetAllTodoItems()
+        // GET tables/Idea
+        public IQueryable<Idea> GetAllIdeas()
         {
             return Query();
         }
 
-        // GET tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public SingleResult<TodoItem> GetTodoItem(string id)
+        // GET tables/Idea/48D68C86-6EA6-4C25-AA33-223FC9A27959
+        public SingleResult<Idea> GetIdea(string id)
         {
             return Lookup(id);
         }
 
-        // PATCH tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public Task<TodoItem> PatchTodoItem(string id, Delta<TodoItem> patch)
+        // PATCH tables/Idea/48D68C86-6EA6-4C25-AA33-223FC9A27959
+        public Task<Idea> PatchIdea(string id, Delta<Idea> patch)
         {
             return UpdateAsync(id, patch);
         }
 
-        // POST tables/TodoItem
-        public async Task<IHttpActionResult> PostTodoItem(TodoItem item)
+        // POST tables/Idea
+        public async Task<IHttpActionResult> PostIdea(Idea item)
         {
-            TodoItem current = await InsertAsync(item);
+            Idea current = await InsertAsync(item);
             return CreatedAtRoute("Tables", new { id = current.Id }, current);
         }
 
-        // DELETE tables/TodoItem/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public Task DeleteTodoItem(string id)
+        // DELETE tables/Idea/48D68C86-6EA6-4C25-AA33-223FC9A27959
+        public Task DeleteIdea(string id)
         {
             return DeleteAsync(id);
         }

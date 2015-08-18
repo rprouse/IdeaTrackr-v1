@@ -27,23 +27,30 @@ namespace IdeaTrackr.Backend
         }
     }
 
+#if DEBUG
     public class MobileServiceInitializer : DropCreateDatabaseIfModelChanges<MobileServiceContext>
     {
         protected override void Seed(MobileServiceContext context)
         {
-            List<TodoItem> todoItems = new List<TodoItem>
+            List<Idea> ideas = new List<Idea>
             {
-                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "First item", Complete = false },
-                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "Second item", Complete = false },
+                new Idea { Id = Guid.NewGuid().ToString(), Name = "Idea Trackr", Problem = "It is hard to come up with and validate business ideas", Solution = "Android application to enter, track, rate and validate business ideas. Need to come up with a process for rating and validating.", Notes = "I should try building this in Xamarin.Forms as an experiment", Rating = 4 },
+                new Idea { Id = Guid.NewGuid().ToString(), Name = "Goal Trackr", Problem = "People are very bad at sticking to their goals and resolutions", Solution = "Track short, medium and long term goals\n\nSet,  track, remind and manage", Notes = "I'm not really a goal oriented person, could I be passionate about this project?", Rating = 3 },
+                new Idea { Id = Guid.NewGuid().ToString(), Name = "Domain Stormer", Problem = "It is hard to find a short, unused domain name", Solution = "Search for and purchase domains by entering two or three words, then work with all the combinations and synonyms.", Notes = "Too much competition", Rating = 2 },
             };
 
-            foreach (TodoItem todoItem in todoItems)
+            foreach (Idea todoItem in ideas)
             {
-                context.Set<TodoItem>().Add(todoItem);
+                context.Set<Idea>().Add(todoItem);
             }
 
             base.Seed(context);
         }
     }
+#else
+    public class MobileServiceInitializer : ClearDatabaseSchemaIfModelChanges<MobileServiceContext>
+    {
+    }
+#endif
 }
 
