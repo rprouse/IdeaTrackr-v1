@@ -16,6 +16,7 @@ namespace IdeaTrackr.Droid
         {
             base.OnCreate(bundle);
 
+            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
         }

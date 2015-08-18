@@ -14,27 +14,18 @@ namespace IdeaTrackr.Backend.Controllers
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
-            MobileServiceContext context = new MobileServiceContext();
+            var context = new MobileServiceContext();
             DomainManager = new EntityDomainManager<Idea>(context, Request, Services);
         }
 
         // GET tables/Idea
-        public IQueryable<Idea> GetAllIdeas()
-        {
-            return Query();
-        }
+        public IQueryable<Idea> GetAllIdeas() => Query();
 
         // GET tables/Idea/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public SingleResult<Idea> GetIdea(string id)
-        {
-            return Lookup(id);
-        }
+        public SingleResult<Idea> GetIdea(string id) => Lookup(id);
 
         // PATCH tables/Idea/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public Task<Idea> PatchIdea(string id, Delta<Idea> patch)
-        {
-            return UpdateAsync(id, patch);
-        }
+        public Task<Idea> PatchIdea(string id, Delta<Idea> patch) => UpdateAsync(id, patch);
 
         // POST tables/Idea
         public async Task<IHttpActionResult> PostIdea(Idea item)
@@ -44,9 +35,6 @@ namespace IdeaTrackr.Backend.Controllers
         }
 
         // DELETE tables/Idea/48D68C86-6EA6-4C25-AA33-223FC9A27959
-        public Task DeleteIdea(string id)
-        {
-            return DeleteAsync(id);
-        }
+        public Task DeleteIdea(string id) => DeleteAsync(id);
     }
 }
