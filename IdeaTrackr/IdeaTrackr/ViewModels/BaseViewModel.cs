@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace IdeaTrackr.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
         bool _loading;
+
+        public BaseViewModel(INavigation navigation)
+        {
+            Navigation = navigation;
+        }
+
+        INavigation Navigation { get; set; }
 
         public bool Loading
         {
@@ -31,7 +34,7 @@ namespace IdeaTrackr.ViewModels
 
         protected void NotifyPropertyChanged([CallerMemberName]string propertyName = null)
         {
-            if(PropertyChanged != null)
+            if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }

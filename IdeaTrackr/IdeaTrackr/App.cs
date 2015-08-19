@@ -1,8 +1,5 @@
 ﻿using IdeaTrackr.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using IdeaTrackr.Views;
 
 using Xamarin.Forms;
 
@@ -15,14 +12,14 @@ namespace IdeaTrackr
         public App()
         {
             // The root page of your application
-            MainPage = new IdeaTrackr.Views.IdeaList();
+            MainPage = new NavigationPage(new IdeaListView());
         }
 
         public static IdeaService GetIdeaService()
         {
             if(_service == null)
             {
-                _service = new IdeaService("http://localhost:60978/");
+                _service = new IdeaService("http://ideatrackr.azure-mobile.net/");
             }
             return _service;
         }

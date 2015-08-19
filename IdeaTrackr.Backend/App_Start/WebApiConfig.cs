@@ -27,8 +27,7 @@ namespace IdeaTrackr.Backend
         }
     }
 
-#if DEBUG
-    public class MobileServiceInitializer : DropCreateDatabaseIfModelChanges<MobileServiceContext>
+    public class MobileServiceInitializer : ClearDatabaseSchemaIfModelChanges<MobileServiceContext>
     {
         protected override void Seed(MobileServiceContext context)
         {
@@ -47,10 +46,5 @@ namespace IdeaTrackr.Backend
             base.Seed(context);
         }
     }
-#else
-    public class MobileServiceInitializer : ClearDatabaseSchemaIfModelChanges<MobileServiceContext>
-    {
-    }
-#endif
 }
 

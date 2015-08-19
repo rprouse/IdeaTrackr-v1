@@ -1,11 +1,16 @@
 ﻿using IdeaTrackr.Models;
 using System.Collections.ObjectModel;
+using Xamarin.Forms;
 
 namespace IdeaTrackr.ViewModels
 {
     public class IdeaListViewModel : BaseViewModel
     {
-        private ObservableCollection<Idea> _ideas;
+        ObservableCollection<Idea> _ideas;
+
+        public IdeaListViewModel(INavigation navigation) : base(navigation)
+        {
+        }
 
         public ObservableCollection<Idea> Ideas
         {

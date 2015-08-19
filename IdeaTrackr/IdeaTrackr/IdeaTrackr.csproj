@@ -41,8 +41,8 @@
     <Compile Include="Services\IdeaService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\IdeaListViewModel.cs" />
-    <Compile Include="Views\IdeaList.xaml.cs">
-      <DependentUpon>IdeaList.xaml</DependentUpon>
+    <Compile Include="Views\IdeaListView.xaml.cs">
+      <DependentUpon>IdeaListView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -80,7 +80,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Views\IdeaList.xaml">
+    <EmbeddedResource Include="Views\IdeaListView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
