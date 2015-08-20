@@ -26,9 +26,9 @@ namespace IdeaTrackr.Views
 
         public void OnIdeaTapped(object sender, ItemTappedEventArgs e)
         {
-            // TODO: Display detail page
+            // Display detail page
             var idea = e.Item as Idea;
-            // Navigation.PushAsync(new IdeaView(idea));
+            Navigation.PushAsync(new IdeaView(idea));
         }
     }
 }

@@ -37,12 +37,17 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Models\Idea.cs" />
+    <Compile Include="Models\BaseNotifyPropertyChanged.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IdeaService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\IdeaListViewModel.cs" />
+    <Compile Include="ViewModels\IdeaViewModel.cs" />
     <Compile Include="Views\IdeaListView.xaml.cs">
       <DependentUpon>IdeaListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IdeaView.xaml.cs">
+      <DependentUpon>IdeaView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -78,7 +83,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Views\IdeaView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\IdeaListView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

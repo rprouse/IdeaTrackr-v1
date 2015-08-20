@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAzure.Mobile.Service;
+using System;
 
 namespace IdeaTrackr.Backend.DataObjects
 {

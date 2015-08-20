@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="IdeaTrackr.Views.IdeaView">
+    <TableView Intent="Form">
+        <TableView.Root>
+            <TableRoot Title="Idea">
+                <TableSection>
+                    <EntryCell Label="Name" Text="{Binding Idea.Name, Mode=TwoWay}" />
+                    <EntryCell Label="Problem" Text="{Binding Idea.Problem, Mode=TwoWay}" />
+                    <EntryCell Label="Solution" Text="{Binding Idea.Solution, Mode=TwoWay}" />
+                    <EntryCell Label="Notes" Text="{Binding Idea.Notes, Mode=TwoWay}" />
+                    <EntryCell Label="Rating" Text="{Binding Idea.Rating, Mode=TwoWay}" Keyboard="Numeric" />
+                </TableSection>
+            </TableRoot>
+        </TableView.Root>
+    </TableView>
+</ContentPage>
