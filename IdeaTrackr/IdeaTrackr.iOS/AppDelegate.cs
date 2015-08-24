@@ -22,6 +22,14 @@ namespace IdeaTrackr.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB(0x3F, 0x51, 0xB5); //bar background
+            UINavigationBar.Appearance.TintColor = UIColor.White; //Tint color of button items
+            UINavigationBar.Appearance.SetTitleTextAttributes(new UITextAttributes()
+            {
+                Font = UIFont.FromName("HelveticaNeue-Light", (nfloat)20f),
+                TextColor = UIColor.White
+            });
+
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
 
             global::Xamarin.Forms.Forms.Init();
