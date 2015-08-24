@@ -11,7 +11,8 @@ namespace IdeaTrackr.Services
 
         public IdeaService(string serviceBaseUri)
         {
-            _client = new MobileServiceClient("http://localhost:60978/", "IdeaTrackrKey");
+            _client = new MobileServiceClient("https://ideatrackr.azure-mobile.net/", "QIkEbdMIlHQGiTNdqxOigcNHUBPGzO64");
+            //_client = new MobileServiceClient("http://localhost:60978/", "IdeaTrackrKey");
         }
 
         public async Task<IEnumerable<Idea>> GetIdeas()
