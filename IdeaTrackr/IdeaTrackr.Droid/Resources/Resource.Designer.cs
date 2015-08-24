@@ -43,6 +43,43 @@ namespace IdeaTrackr.Droid
 			}
 		}
 		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f040003
+			public const int accent = 2130968579;
+			
+			// aapt resource value: 0x7f040007
+			public const int divider = 2130968583;
+			
+			// aapt resource value: 0x7f040006
+			public const int icons = 2130968582;
+			
+			// aapt resource value: 0x7f040000
+			public const int primary = 2130968576;
+			
+			// aapt resource value: 0x7f040001
+			public const int primary_dark = 2130968577;
+			
+			// aapt resource value: 0x7f040002
+			public const int primary_light = 2130968578;
+			
+			// aapt resource value: 0x7f040004
+			public const int primary_text = 2130968580;
+			
+			// aapt resource value: 0x7f040005
+			public const int secondary_text = 2130968581;
+			
+			static Color()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Color()
+			{
+			}
+		}
+		
 		public partial class Drawable
 		{
 			
@@ -74,6 +111,31 @@ namespace IdeaTrackr.Droid
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f050001
+			public const int MyTheme = 2131034113;
+			
+			// aapt resource value: 0x7f050003
+			public const int MyTheme_ActionBar_TitleTextStyle = 2131034115;
+			
+			// aapt resource value: 0x7f050002
+			public const int MyTheme_ActionBarStyle = 2131034114;
+			
+			// aapt resource value: 0x7f050000
+			public const int MyTheme_Base = 2131034112;
+			
+			static Style()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Style()
 			{
 			}
 		}
