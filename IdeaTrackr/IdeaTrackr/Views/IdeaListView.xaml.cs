@@ -18,10 +18,10 @@ namespace IdeaTrackr.Views
             BindingContext = _viewModel;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.Load();
+            await _viewModel.LoadAsync();
         }
 
         public void OnIdeaTapped(object sender, ItemTappedEventArgs e)

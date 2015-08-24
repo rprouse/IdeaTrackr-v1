@@ -25,6 +25,7 @@ namespace IdeaTrackr.iOS
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
 
             global::Xamarin.Forms.Forms.Init();
+            SQLitePCL.CurrentPlatform.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

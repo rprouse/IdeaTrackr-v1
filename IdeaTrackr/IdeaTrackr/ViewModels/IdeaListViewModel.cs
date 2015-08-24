@@ -1,5 +1,9 @@
 ﻿using IdeaTrackr.Models;
+using Microsoft.WindowsAzure.MobileServices;
+using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace IdeaTrackr.ViewModels
@@ -22,27 +26,37 @@ namespace IdeaTrackr.ViewModels
             }
         }
 
-        public void Load()
+        public async Task LoadAsync()
         {
             if (Ideas != null)
                 return;
 
+            await PerformNetworkOperationAsync(async () =>
+            {
+                var service = await App.GetIdeaServiceAsync();
+                var ideas = await service.GetIdeasAsync();
+                Ideas = new ObservableCollection<Idea>(ideas);
+            });
+        }
+
+        async Task PerformNetworkOperationAsync(Func<Task> func)
+        {
             Loading = true;
 
-            App.GetIdeaService().GetIdeas().ContinueWith(r =>
+            try
             {
-                if(r.Exception == null)
-                {
-                    var ideaResults = r.Result;
-                    Ideas = new ObservableCollection<Idea>(ideaResults);
-                }
-                else
-                {
-                    // TODO: Raise an error
-                }
-                Loading = false;
-            });
+                await func();
+            }
+            catch (MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine($"INVALID: {msioe.Message}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"ERROR: {ex.Message}");
+            }
 
+            Loading = false;
         }
     }
 }

@@ -2,33 +2,66 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IdeaTrackr.Models;
+using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
+using Microsoft.WindowsAzure.MobileServices.Sync;
+using System.Diagnostics;
+using System;
 
 namespace IdeaTrackr.Services
 {
     public class IdeaService
     {
-        private static MobileServiceClient _client;
+        MobileServiceClient _client;
+        IMobileServiceSyncTable<Idea> _table;
 
-        public IdeaService(string serviceBaseUri)
+        internal async Task InitAsync()
         {
+            var store = new MobileServiceSQLiteStore("ideas.db3");
+            store.DefineTable<Idea>();
+
             _client = new MobileServiceClient("https://ideatrackr.azure-mobile.net/", "QIkEbdMIlHQGiTNdqxOigcNHUBPGzO64");
-            //_client = new MobileServiceClient("http://localhost:60978/", "IdeaTrackrKey");
+
+            await _client.SyncContext.InitializeAsync(store);
+            _table = _client.GetSyncTable<Idea>();
         }
 
-        public async Task<IEnumerable<Idea>> GetIdeas()
+        async Task SyncAsync()
         {
-            var table = _client.GetTable<Idea>();
-            return await table.ReadAsync();
+            try
+            {
+                await _client.SyncContext.PushAsync();
+                await _table.PullAsync("Ideas", _table.CreateQuery());
+            }
+            catch(MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine($"INVALID: {msioe.Message}");
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine($"ERROR: {ex.Message}");
+            }
         }
 
-        public async Task<Idea> AddOrUpdateIdea(Idea idea)
+        public async Task<IEnumerable<Idea>> GetIdeasAsync()
         {
-            var table = _client.GetTable<Idea>();
-            if(string.IsNullOrWhiteSpace(idea.Id))
-                await table.InsertAsync(idea);
+            await SyncAsync();
+            return await _table.ReadAsync();
+        }
+
+        public async Task<Idea> SaveIdeaAsync(Idea idea)
+        {
+            if (string.IsNullOrWhiteSpace(idea.Id))
+                await _table.InsertAsync(idea);
             else
-                await table.UpdateAsync(idea);
+                await _table.UpdateAsync(idea);
+            await SyncAsync();
             return idea;
+        }
+
+        public async Task DeleteIdeaAsync(Idea idea)
+        {
+            await _table.DeleteAsync(idea);
+            await SyncAsync();
         }
     }
 }

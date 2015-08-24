@@ -1,6 +1,6 @@
 ﻿using IdeaTrackr.Services;
 using IdeaTrackr.Views;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace IdeaTrackr
@@ -15,11 +15,12 @@ namespace IdeaTrackr
             MainPage = new NavigationPage(new IdeaListView());
         }
 
-        public static IdeaService GetIdeaService()
+        public static async Task<IdeaService> GetIdeaServiceAsync()
         {
             if(_service == null)
             {
-                _service = new IdeaService("http://ideatrackr.azure-mobile.net/");
+                _service = new IdeaService();
+                await _service.InitAsync();
             }
             return _service;
         }
