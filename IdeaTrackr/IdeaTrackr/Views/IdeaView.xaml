@@ -2,21 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="IdeaTrackr.Views.IdeaView">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <OnPlatform.iOS>0, 20, 0, 0</OnPlatform.iOS>
+        </OnPlatform>
+    </ContentPage.Padding>
     <ScrollView Orientation="Vertical">
-        <StackLayout Orientation="Vertical">
-            <Label Text="Idea" FontAttributes="Bold" />
+        <StackLayout Orientation="Vertical" Padding="8, 8">
+            <Label Text="Idea" />
             <Entry Text="{Binding Idea.Name, Mode=TwoWay}" />
 
-            <Label Text="Problem" FontAttributes="Bold" />
+            <Label Text="Problem" />
             <Editor Text="{Binding Idea.Problem, Mode=TwoWay}" />
 
-            <Label Text="Solution" FontAttributes="Bold" />
+            <Label Text="Solution" />
             <Editor Text="{Binding Idea.Solution, Mode=TwoWay}" />
 
-            <Label Text="Notes" FontAttributes="Bold" />
+            <Label Text="Notes" />
             <Editor Text="{Binding Idea.Notes, Mode=TwoWay}" />
 
-            <Label Text="Rating" FontAttributes="Bold" />
+            <Label Text="Rating" />
             <Entry Text="{Binding Idea.Rating, Mode=TwoWay}" Keyboard="Numeric" />
         </StackLayout>
     </ScrollView>

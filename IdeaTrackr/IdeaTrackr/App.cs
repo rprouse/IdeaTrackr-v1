@@ -1,5 +1,7 @@
 ﻿using IdeaTrackr.Services;
+using IdeaTrackr.Styles;
 using IdeaTrackr.Views;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -12,8 +14,14 @@ namespace IdeaTrackr
         public App()
         {
             // The root page of your application
-            MainPage = new NavigationPage(new IdeaListView());
+            MainPage = new NavigationPage(new IdeaListView())
+            {
+                BarBackgroundColor = StyleKit.DarkPrimaryColor,
+                BarTextColor = StyleKit.HeaderTextColor
+            };
         }
+
+        public string ResumeAtIdeaId { get; set; }
 
         public static async Task<IdeaService> GetIdeaServiceAsync()
         {
@@ -25,9 +33,27 @@ namespace IdeaTrackr
             return _service;
         }
 
-        protected override void OnStart()
+        protected async override void OnStart()
         {
-            // Handle when your app starts
+            Debug.WriteLine("OnStart");
+
+            // always re-set when the app starts
+            // users expect this (usually)
+            if (Properties.ContainsKey("ResumeAtIdeaId"))
+            {
+                var id = Properties["ResumeAtIdeaId"].ToString();
+                if (!string.IsNullOrEmpty(id))
+                {
+                    Debug.WriteLine("   id = " + id);
+                    ResumeAtIdeaId = id;
+
+                    var service = await GetIdeaServiceAsync();
+                    var idea = await service.GetIdeaAsync(ResumeAtIdeaId);
+                    var ideaView = new IdeaView(idea);
+
+                    await MainPage.Navigation.PushAsync(ideaView, false); // no animation
+                }
+            }
         }
 
         protected override void OnSleep()

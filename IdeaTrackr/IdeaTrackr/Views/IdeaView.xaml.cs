@@ -13,6 +13,7 @@ namespace IdeaTrackr.Views
         public IdeaView(Idea idea)
         {
             InitializeComponent();
+
             BindingContext = new IdeaViewModel(Navigation, idea);
         }
     }

@@ -6,6 +6,7 @@ using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Microsoft.WindowsAzure.MobileServices.Sync;
 using System.Diagnostics;
 using System;
+using System.Linq;
 
 namespace IdeaTrackr.Services
 {
@@ -46,6 +47,12 @@ namespace IdeaTrackr.Services
         {
             await SyncAsync();
             return await _table.ReadAsync();
+        }
+
+        public async Task<Idea> GetIdeaAsync(string id)
+        {
+            await _table.PullAsync("Idea", _table.Where(i => i.Id == id));
+            return await _table.LookupAsync(id);
         }
 
         public async Task<Idea> SaveIdeaAsync(Idea idea)

@@ -8,11 +8,15 @@
         </OnPlatform>
     </ContentPage.Padding>
     <StackLayout Orientation="Vertical">
-        <ActivityIndicator IsVisible="{Binding Loading}" IsRunning="{Binding Loading}" />
-        <ListView ItemsSource="{Binding Ideas}" ItemTapped="OnIdeaTapped">
+        <ActivityIndicator IsVisible="{Binding Loading}" IsRunning="{Binding Loading}" VerticalOptions="CenterAndExpand" />
+        <ListView
+        	ItemsSource="{Binding Ideas}"
+        	ItemTapped="OnIdeaTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Name}" Detail="{Binding Rating, StringFormat='Rating: {0}'}" />
+                    <TextCell
+                    	Text="{Binding Name}"
+                    	Detail="{Binding Rating, StringFormat='Rating: {0}'}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
