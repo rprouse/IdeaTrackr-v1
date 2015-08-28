@@ -12,7 +12,10 @@
         <ActivityIndicator IsVisible="{Binding Loading}" IsRunning="{Binding Loading}" VerticalOptions="CenterAndExpand" />
         <ListView
         	ItemsSource="{Binding Ideas}"
-        	ItemTapped="OnIdeaTapped">
+        	ItemTapped="OnIdeaTapped"
+            IsPullToRefreshEnabled="true"
+            RefreshCommand="{Binding RefreshCommand}"
+            IsRefreshing="{Binding Loading, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell
