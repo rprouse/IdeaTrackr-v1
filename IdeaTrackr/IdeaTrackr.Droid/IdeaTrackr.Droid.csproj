@@ -125,7 +125,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
   </ItemGroup>
@@ -138,6 +137,11 @@
     <AndroidResource Include="Resources\drawable-mdpi\ic_menu_add.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_menu_add.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_add.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdeaTrackr\IdeaTrackr.csproj">

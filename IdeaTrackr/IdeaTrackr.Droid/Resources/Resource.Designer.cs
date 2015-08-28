@@ -46,29 +46,29 @@ namespace IdeaTrackr.Droid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f040003
-			public const int accent = 2130968579;
+			// aapt resource value: 0x7f050003
+			public const int accent = 2131034115;
 			
-			// aapt resource value: 0x7f040007
-			public const int divider = 2130968583;
+			// aapt resource value: 0x7f050007
+			public const int divider = 2131034119;
 			
-			// aapt resource value: 0x7f040006
-			public const int icons = 2130968582;
+			// aapt resource value: 0x7f050006
+			public const int icons = 2131034118;
 			
-			// aapt resource value: 0x7f040000
-			public const int primary = 2130968576;
+			// aapt resource value: 0x7f050000
+			public const int primary = 2131034112;
 			
-			// aapt resource value: 0x7f040001
-			public const int primary_dark = 2130968577;
+			// aapt resource value: 0x7f050001
+			public const int primary_dark = 2131034113;
 			
-			// aapt resource value: 0x7f040002
-			public const int primary_light = 2130968578;
+			// aapt resource value: 0x7f050002
+			public const int primary_light = 2131034114;
 			
-			// aapt resource value: 0x7f040004
-			public const int primary_text = 2130968580;
+			// aapt resource value: 0x7f050004
+			public const int primary_text = 2131034116;
 			
-			// aapt resource value: 0x7f040005
-			public const int secondary_text = 2130968581;
+			// aapt resource value: 0x7f050005
+			public const int secondary_text = 2131034117;
 			
 			static Color()
 			{
@@ -99,14 +99,30 @@ namespace IdeaTrackr.Droid
 			}
 		}
 		
+		public partial class Mipmap
+		{
+			
+			// aapt resource value: 0x7f030000
+			public const int ic_launcher = 2130903040;
+			
+			static Mipmap()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Mipmap()
+			{
+			}
+		}
+		
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f030001
-			public const int ApplicationName = 2130903041;
+			// aapt resource value: 0x7f040001
+			public const int ApplicationName = 2130968577;
 			
-			// aapt resource value: 0x7f030000
-			public const int Hello = 2130903040;
+			// aapt resource value: 0x7f040000
+			public const int Hello = 2130968576;
 			
 			static String()
 			{
@@ -121,17 +137,17 @@ namespace IdeaTrackr.Droid
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f050001
-			public const int MyTheme = 2131034113;
+			// aapt resource value: 0x7f060001
+			public const int MyTheme = 2131099649;
 			
-			// aapt resource value: 0x7f050003
-			public const int MyTheme_ActionBar_TitleTextStyle = 2131034115;
+			// aapt resource value: 0x7f060003
+			public const int MyTheme_ActionBar_TitleTextStyle = 2131099651;
 			
-			// aapt resource value: 0x7f050002
-			public const int MyTheme_ActionBarStyle = 2131034114;
+			// aapt resource value: 0x7f060002
+			public const int MyTheme_ActionBarStyle = 2131099650;
 			
-			// aapt resource value: 0x7f050000
-			public const int MyTheme_Base = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int MyTheme_Base = 2131099648;
 			
 			static Style()
 			{
