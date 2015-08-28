@@ -23,6 +23,11 @@
 
             <Label Text="Rating" />
             <Entry Text="{Binding Idea.Rating, Mode=TwoWay}" Keyboard="Numeric" />
+            
+            <Button Text="Save" Command="{Binding SaveCommand}" />
+            <Button Text="Delete" Command="{Binding DeleteCommand}" />
+            <Button Text="Cancel" Command="{Binding CancelCommand}" />
+            
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -48,7 +48,6 @@
     <Compile Include="Views\IdeaListView.xaml.cs">
       <DependentUpon>IdeaListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\IdeaListView2.cs" />
     <Compile Include="Views\IdeaView.xaml.cs">
       <DependentUpon>IdeaView.xaml</DependentUpon>
     </Compile>

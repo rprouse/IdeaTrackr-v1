@@ -1,4 +1,8 @@
 ﻿using IdeaTrackr.Models;
+using Microsoft.WindowsAzure.MobileServices;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace IdeaTrackr.ViewModels
@@ -12,7 +16,7 @@ namespace IdeaTrackr.ViewModels
             Navigation = navigation;
         }
 
-        INavigation Navigation { get; set; }
+        public INavigation Navigation { get; set; }
 
         public bool Loading
         {
@@ -25,6 +29,26 @@ namespace IdeaTrackr.ViewModels
                     NotifyPropertyChanged();
                 }
             }
+        }
+
+        protected async Task PerformNetworkOperationAsync(Func<Task> func)
+        {
+            Loading = true;
+
+            try
+            {
+                await func();
+            }
+            catch (MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine($"INVALID: {msioe.Message}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"ERROR: {ex.Message}");
+            }
+
+            Loading = false;
         }
     }
 }
