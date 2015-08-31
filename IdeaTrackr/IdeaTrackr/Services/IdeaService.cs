@@ -26,6 +26,14 @@ namespace IdeaTrackr.Services
             _table = _client.GetSyncTable<Idea>();
         }
 
+        public MobileServiceClient MobileServiceClient => _client;
+
+        public MobileServiceUser CurrentUser
+        {
+            get { return _client.CurrentUser; }
+            set { _client.CurrentUser = value; }
+        }
+
         async Task SyncAsync()
         {
             try

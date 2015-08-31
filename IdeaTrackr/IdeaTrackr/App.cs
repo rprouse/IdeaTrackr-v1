@@ -14,6 +14,11 @@ namespace IdeaTrackr
         public App()
         {
             // The root page of your application
+            MainPage = new ContentPage();
+        }
+
+        public void LoadMainPage()
+        {
             MainPage = new NavigationPage(new IdeaListView())
             {
                 BarBackgroundColor = StyleKit.DarkPrimaryColor,
