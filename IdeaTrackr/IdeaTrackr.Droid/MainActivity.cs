@@ -1,20 +1,23 @@
 ﻿
 using Android.App;
 using Android.Content.PM;
-using Android.Graphics.Drawables;
 using Android.OS;
+using IdeaTrackr.Droid.Services;
+using IdeaTrackr.Services;
 
 namespace IdeaTrackr.Droid
 {
-    [Activity(Label = "Idea Trackr", Icon = "@mipmap/ic_launcher", Theme = "@style/MyTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Idea Trackr", MainLauncher = true, Icon = "@mipmap/ic_launcher", Theme = "@style/MyTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
+            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            var app = new App();
+
+            var app = new App(new LoginProvider(this));
             app.LoadMainPage();
             LoadApplication(app);
 
@@ -22,6 +25,15 @@ namespace IdeaTrackr.Droid
             //{
             //    ActionBar.SetIcon(new ColorDrawable(Resources.GetColor(Android.Resource.Color.Transparent)));
             //}
+        }
+
+        public override void OnBackPressed()
+        {
+            // Prevent the user from pressing back to leave the login page
+            if (!App.LoggedIn)
+                return;
+
+            base.OnBackPressed();
         }
     }
 }

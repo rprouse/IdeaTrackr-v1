@@ -6,7 +6,6 @@ using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Microsoft.WindowsAzure.MobileServices.Sync;
 using System.Diagnostics;
 using System;
-using System.Linq;
 
 namespace IdeaTrackr.Services
 {
@@ -14,6 +13,12 @@ namespace IdeaTrackr.Services
     {
         MobileServiceClient _client;
         IMobileServiceSyncTable<Idea> _table;
+        ILoginProvider _loginProvider;
+
+        public IdeaService(ILoginProvider loginProvider)
+        {
+            _loginProvider = loginProvider;
+        }
 
         internal async Task InitAsync()
         {
@@ -33,6 +38,7 @@ namespace IdeaTrackr.Services
             get { return _client.CurrentUser; }
             set { _client.CurrentUser = value; }
         }
+        public bool LoggedIn => !string.IsNullOrWhiteSpace(CurrentUser.UserId);
 
         async Task SyncAsync()
         {
@@ -77,6 +83,17 @@ namespace IdeaTrackr.Services
         {
             await _table.DeleteAsync(idea);
             await SyncAsync();
+        }
+        public async Task Login(MobileServiceAuthenticationProvider provider)
+        {
+            var user = await _loginProvider.LoginAsync(MobileServiceClient, provider);
+            CurrentUser = user;
+        }
+
+        public async Task Login(MobileServiceAuthenticationProvider provider, string authToken)
+        {
+            var user = await _loginProvider.LoginAsync(MobileServiceClient, provider, authToken);
+            CurrentUser = user;
         }
     }
 }

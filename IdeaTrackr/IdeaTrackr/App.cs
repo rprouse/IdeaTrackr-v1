@@ -9,10 +9,14 @@ namespace IdeaTrackr
 {
     public class App : Application
     {
-        private static IdeaService _service;
+        static IdeaService _service;
 
-        public App()
+        static ILoginProvider _loginProvider;
+
+        public App(ILoginProvider loginProvider)
         {
+            _loginProvider = loginProvider;
+
             // The root page of your application
             MainPage = new ContentPage();
         }
@@ -26,13 +30,15 @@ namespace IdeaTrackr
             };
         }
 
+        public static bool LoggedIn => _service != null && _service.LoggedIn;
+
         public string ResumeAtIdeaId { get; set; }
 
         public static async Task<IdeaService> GetIdeaServiceAsync()
         {
             if(_service == null)
             {
-                _service = new IdeaService();
+                _service = new IdeaService(_loginProvider);
                 await _service.InitAsync();
             }
             return _service;

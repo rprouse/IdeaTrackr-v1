@@ -2,7 +2,7 @@
 using IdeaTrackr.ViewModels;
 using System;
 using System.Linq;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace IdeaTrackr.Views
@@ -40,9 +40,13 @@ namespace IdeaTrackr.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
             // reset the 'resume' id, since we just want to re-start here
             ((App)App.Current).ResumeAtIdeaId = "";
-            await _viewModel.LoadAsync();
+            if (!App.LoggedIn)
+            {
+                await Navigation.PushModalAsync(new LoginView());
+            }
         }
 
         public void OnIdeaTapped(object sender, ItemTappedEventArgs e)

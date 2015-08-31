@@ -13,6 +13,8 @@ namespace IdeaTrackr.ViewModels
         public IdeaListViewModel(INavigation navigation) : base(navigation)
         {
             RefreshCommand = new Command(async () => await LoadAsync(), () => !Loading );
+
+            MessagingCenter.Subscribe<LoginViewModel>(this, LoginViewModel.LoggedInMessage, async (sender) => await LoadAsync());
         }
 
         public ObservableCollection<Idea> Ideas
@@ -25,7 +27,7 @@ namespace IdeaTrackr.ViewModels
             }
         }
 
-        public ICommand RefreshCommand { get; private set; }
+        public ICommand RefreshCommand { get; }
 
         public async Task LoadAsync()
         {
