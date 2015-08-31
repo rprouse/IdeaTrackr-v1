@@ -14,5 +14,7 @@ namespace IdeaTrackr.Backend.DataObjects
         public string Notes { get; set; }
 
         public int Rating { get; set; }
+
+        public string UserId { get; set; }
     }
 }
