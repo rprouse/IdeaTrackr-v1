@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using IdeaTrackr.iOS.Services;
 
 namespace IdeaTrackr.iOS
 {
@@ -34,7 +35,7 @@ namespace IdeaTrackr.iOS
 
             global::Xamarin.Forms.Forms.Init();
             SQLitePCL.CurrentPlatform.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(new LoginProvider(//TODO: Where do I get this?));
 
             return base.FinishedLaunching(app, options);
         }

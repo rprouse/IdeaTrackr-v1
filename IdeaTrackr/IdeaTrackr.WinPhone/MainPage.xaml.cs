@@ -1,4 +1,5 @@
-﻿using Microsoft.Phone.Controls;
+﻿using IdeaTrackr.WinPhone.Services;
+using Microsoft.Phone.Controls;
 
 namespace IdeaTrackr.WinPhone
 {
@@ -10,7 +11,7 @@ namespace IdeaTrackr.WinPhone
             SupportedOrientations = SupportedPageOrientation.PortraitOrLandscape;
 
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new IdeaTrackr.App());
+            LoadApplication(new IdeaTrackr.App(new LoginProvider()));
         }
     }
 }

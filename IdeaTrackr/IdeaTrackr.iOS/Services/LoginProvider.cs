@@ -1,18 +1,18 @@
-using IdeaTrackr.Services;
+﻿using IdeaTrackr.Services;
 using Microsoft.WindowsAzure.MobileServices;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using Android.Content;
+using System.Threading.Tasks;
+using UIKit;
 
-namespace IdeaTrackr.Droid.Services
+namespace IdeaTrackr.iOS.Services
 {
     public class LoginProvider : ILoginProvider
     {
-        Context _context;
+        UIViewController _controller;
 
-        public LoginProvider(Context context)
+        public LoginProvider(UIViewController controller)
         {
-            _context = context;
+            _controller = controller;
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace IdeaTrackr.Droid.Services
         /// <param name="provider"></param>
         /// <returns>The logged in user</returns>
         public async Task<MobileServiceUser> LoginAsync(MobileServiceClient client, MobileServiceAuthenticationProvider provider) =>
-            await client.LoginAsync(_context, provider);
+            await client.LoginAsync(_controller, provider);
 
         /// <summary>
         /// Logs in to the given provider using the cached token
@@ -30,6 +30,6 @@ namespace IdeaTrackr.Droid.Services
         /// <param name="token"></param>
         /// <returns></returns>
         public async Task<MobileServiceUser> LoginAsync(MobileServiceClient client, MobileServiceAuthenticationProvider provider, JObject token) =>
-            await client.LoginAsync(provider, token);
+            await client.LoginAsync(provider, tokenObject);
     }
 }

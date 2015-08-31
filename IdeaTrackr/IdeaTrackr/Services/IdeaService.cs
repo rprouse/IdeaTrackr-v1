@@ -6,6 +6,7 @@ using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Microsoft.WindowsAzure.MobileServices.Sync;
 using System.Diagnostics;
 using System;
+using Newtonsoft.Json.Linq;
 
 namespace IdeaTrackr.Services
 {
@@ -47,11 +48,11 @@ namespace IdeaTrackr.Services
                 await _client.SyncContext.PushAsync();
                 await _table.PullAsync("Ideas", _table.CreateQuery());
             }
-            catch(MobileServiceInvalidOperationException msioe)
+            catch (MobileServiceInvalidOperationException msioe)
             {
                 Debug.WriteLine($"INVALID: {msioe.Message}");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine($"ERROR: {ex.Message}");
             }
@@ -92,8 +93,27 @@ namespace IdeaTrackr.Services
 
         public async Task Login(MobileServiceAuthenticationProvider provider, string authToken)
         {
-            var user = await _loginProvider.LoginAsync(MobileServiceClient, provider, authToken);
+            JObject tokenObject = CreateTokenObject(provider, authToken);
+            var user = await _loginProvider.LoginAsync(MobileServiceClient, provider, tokenObject);
             CurrentUser = user;
+        }
+
+        static JObject CreateTokenObject(MobileServiceAuthenticationProvider provider, string authToken)
+        {
+            JObject tokenObject = new JObject();
+            switch (provider)
+            {
+                case MobileServiceAuthenticationProvider.Facebook:
+                    tokenObject.Add("access_token", authToken);
+                    break;
+                case MobileServiceAuthenticationProvider.Google:
+                    tokenObject.Add("id_token", authToken);
+                    break;
+                case MobileServiceAuthenticationProvider.Twitter:
+                    tokenObject.Add("???", authToken);  // TODO
+                    break;
+            }
+            return tokenObject;
         }
     }
 }
