@@ -35,7 +35,7 @@ namespace IdeaTrackr.iOS
 
             global::Xamarin.Forms.Forms.Init();
             SQLitePCL.CurrentPlatform.Init();
-            LoadApplication(new App(new LoginProvider(//TODO: Where do I get this?));
+            LoadApplication(new App(new LoginProvider()));
 
             return base.FinishedLaunching(app, options);
         }

@@ -17,8 +17,7 @@ namespace IdeaTrackr.Droid
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
-            var app = new App(new LoginProvider(this));
-            app.LoadMainPage();
+            var app = new App(new LoginProvider());
             LoadApplication(app);
 
             //if ((int)Android.OS.Build.VERSION.SdkInt >= 21)

@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="IdeaTrackr.Views.LoginView"
              Title="Idea Trackr">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <OnPlatform.iOS>0, 20, 0, 0</OnPlatform.iOS>
+        </OnPlatform>
+    </ContentPage.Padding>
     <StackLayout Orientation="Vertical" Padding="8, 8">
-        <Label Text="Login" />
-
         <Button Text="Login with Facebook" Command="{Binding FacebookLoginCommand}" />
         <Button Text="Login with Twitter" Command="{Binding TwitterLoginCommand}" />
         <Button Text="Login with Google" Command="{Binding GoogleLoginCommand}" />
-
     </StackLayout>
 </ContentPage>

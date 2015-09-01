@@ -8,20 +8,13 @@ namespace IdeaTrackr.Droid.Services
 {
     public class LoginProvider : ILoginProvider
     {
-        Context _context;
-
-        public LoginProvider(Context context)
-        {
-            _context = context;
-        }
-
         /// <summary>
         /// Logs in using the given login provider
         /// </summary>
         /// <param name="provider"></param>
         /// <returns>The logged in user</returns>
         public async Task<MobileServiceUser> LoginAsync(MobileServiceClient client, MobileServiceAuthenticationProvider provider) =>
-            await client.LoginAsync(_context, provider);
+            await client.LoginAsync(Xamarin.Forms.Forms.Context, provider);
 
         /// <summary>
         /// Logs in to the given provider using the cached token
