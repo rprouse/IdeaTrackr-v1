@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 using Foundation;
 using UIKit;
-using IdeaTrackr.iOS.Services;
 
 namespace IdeaTrackr.iOS
 {
@@ -35,7 +32,7 @@ namespace IdeaTrackr.iOS
 
             global::Xamarin.Forms.Forms.Init();
             SQLitePCL.CurrentPlatform.Init();
-            LoadApplication(new App(new LoginProvider()));
+            LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
         }

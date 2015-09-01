@@ -7,6 +7,7 @@ using Microsoft.WindowsAzure.MobileServices.Sync;
 using System.Diagnostics;
 using System;
 using Newtonsoft.Json.Linq;
+using Xamarin.Forms;
 
 namespace IdeaTrackr.Services
 {
@@ -16,9 +17,9 @@ namespace IdeaTrackr.Services
         IMobileServiceSyncTable<Idea> _table;
         ILoginProvider _loginProvider;
 
-        public IdeaService(ILoginProvider loginProvider)
+        public IdeaService()
         {
-            _loginProvider = loginProvider;
+            _loginProvider = DependencyService.Get<ILoginProvider>();
         }
 
         internal async Task InitAsync()
@@ -94,7 +95,7 @@ namespace IdeaTrackr.Services
         public async Task Login(MobileServiceAuthenticationProvider provider, string authToken)
         {
             JObject tokenObject = CreateTokenObject(provider, authToken);
-            var user = await _loginProvider.LoginAsync(MobileServiceClient, provider, tokenObject);
+            var user = await MobileServiceClient.LoginAsync(provider, tokenObject);
             CurrentUser = user;
         }
 

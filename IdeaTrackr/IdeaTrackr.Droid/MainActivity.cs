@@ -2,8 +2,6 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using IdeaTrackr.Droid.Services;
-using IdeaTrackr.Services;
 
 namespace IdeaTrackr.Droid
 {
@@ -17,8 +15,7 @@ namespace IdeaTrackr.Droid
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
-            var app = new App(new LoginProvider());
-            LoadApplication(app);
+            LoadApplication(new App());
 
             //if ((int)Android.OS.Build.VERSION.SdkInt >= 21)
             //{

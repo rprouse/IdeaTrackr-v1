@@ -11,12 +11,8 @@ namespace IdeaTrackr
     {
         static IdeaService _service;
 
-        static ILoginProvider _loginProvider;
-
-        public App(ILoginProvider loginProvider)
+        public App()
         {
-            _loginProvider = loginProvider;
-
             MainPage = new NavigationPage(new IdeaListView())
             {
                 BarBackgroundColor = StyleKit.DarkPrimaryColor,
@@ -32,7 +28,7 @@ namespace IdeaTrackr
         {
             if(_service == null)
             {
-                _service = new IdeaService(_loginProvider);
+                _service = new IdeaService();
                 await _service.InitAsync();
             }
             return _service;
