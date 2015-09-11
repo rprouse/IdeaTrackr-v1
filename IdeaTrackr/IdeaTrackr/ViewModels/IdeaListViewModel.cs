@@ -48,7 +48,7 @@ namespace IdeaTrackr.ViewModels
                 // If not logged in from cache, show login
                 if (!App.LoggedIn)
                 {
-                    await Navigation.PushModalAsync(new LoginView());
+                    await ShowLogin();
                 }
                 else
                 {
@@ -70,11 +70,27 @@ namespace IdeaTrackr.ViewModels
             });
         }
 
-        public void AddIdea()
+        public async Task AddIdea()
         {
-            var idea = new Idea();
+            await ShowIdeaView(new Idea());
+        }
+
+        public async Task Logout()
+        {
+            var service = await App.GetIdeaServiceAsync();
+            await service.Logout();
+            await ShowLogin();
+        }
+
+        public async Task ShowIdeaView(Idea idea)
+        {
             var ideaPage = new IdeaView(idea);
-            Navigation.PushAsync(ideaPage);
+            await Navigation.PushAsync(ideaPage);
+        }
+
+        async Task ShowLogin()
+        {
+            await Navigation.PushModalAsync(new LoginView());
         }
     }
 }

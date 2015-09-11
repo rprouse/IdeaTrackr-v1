@@ -15,23 +15,20 @@ namespace IdeaTrackr.Views
 
             BindingContext = _viewModel;
 
-            #region toolbar
-            ToolbarItem tbi = null;
-            if (Device.OS == TargetPlatform.iOS)
+            string addIcon = null;
+            switch(Device.OS)
             {
-                tbi = new ToolbarItem("Add", null, _viewModel.AddIdea, ToolbarItemOrder.Primary, 0);
+                case TargetPlatform.Android:
+                    addIcon = "ic_menu_add";
+                    break;
+                case TargetPlatform.WinPhone:
+                    addIcon = "add.png";
+                    break;
             }
-            else if (Device.OS == TargetPlatform.Android)
-            { // BUG: Android doesn't support the icon being null
-                tbi = new ToolbarItem("Add", "ic_menu_add", _viewModel.AddIdea, ToolbarItemOrder.Primary, 0);
-            }
-            else if (Device.OS == TargetPlatform.WinPhone)
-            {
-                tbi = new ToolbarItem("Add", "add.png", _viewModel.AddIdea, ToolbarItemOrder.Primary, 0);
-            }
-
-            ToolbarItems.Add(tbi);
-            #endregion
+            ToolbarItems.Add(new ToolbarItem("Add", addIcon,
+                async () => await _viewModel.AddIdea(), ToolbarItemOrder.Primary));
+            ToolbarItems.Add(new ToolbarItem("Logout", null,
+                async () => await _viewModel.Logout(), ToolbarItemOrder.Secondary));
         }
 
         protected override async void OnAppearing()
@@ -43,11 +40,9 @@ namespace IdeaTrackr.Views
             await _viewModel.EnsureLoggedIn();
         }
 
-        public void OnIdeaTapped(object sender, ItemTappedEventArgs e)
+        public async void OnIdeaTapped(object sender, ItemTappedEventArgs e)
         {
-            // Display detail page
-            var idea = e.Item as Idea;
-            Navigation.PushAsync(new IdeaView(idea));
+            await _viewModel.ShowIdeaView(e.Item as Idea);
         }
     }
 }

@@ -102,7 +102,13 @@ namespace IdeaTrackr.Services
             var user = await _loginProvider.LoginAsync(MobileServiceClient, provider);
             CurrentUser = user;
             var cache = new LoginToken(user, provider);
-            await cache.Persist(); 
+            await cache.Persist();
+        }
+
+        public async Task Logout()
+        {
+            await LoginToken.Delete();
+            CurrentUser = null;
         }
     }
 }
