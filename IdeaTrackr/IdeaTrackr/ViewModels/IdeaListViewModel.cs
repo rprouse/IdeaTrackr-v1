@@ -50,11 +50,25 @@ namespace IdeaTrackr.ViewModels
                 {
                     await ShowLogin();
                 }
-                else
-                {
-                    await LoadAsync();
-                }
             }
+
+            if (App.LoggedIn)
+            {
+                await LoadAsync();
+            }
+        }
+
+        public async Task RefreshAsync()
+        {
+            if (Loading)
+                return;
+
+            await PerformNetworkOperationAsync(async () =>
+            {
+                var service = await App.GetIdeaServiceAsync();
+                await service.SyncAsync();
+                await PrivateLoadAsync( service );
+            });
         }
 
         public async Task LoadAsync()
@@ -65,9 +79,14 @@ namespace IdeaTrackr.ViewModels
             await PerformNetworkOperationAsync(async () =>
             {
                 var service = await App.GetIdeaServiceAsync();
-                var ideas = await service.GetIdeasAsync();
-                Ideas = new ObservableCollection<Idea>(ideas);
+                await PrivateLoadAsync(service);
             });
+        }
+
+        async Task PrivateLoadAsync(IdeaService service)
+        {
+            var ideas = await service.GetIdeasAsync();
+            Ideas = new ObservableCollection<Idea>(ideas);
         }
 
         public async Task AddIdea()
