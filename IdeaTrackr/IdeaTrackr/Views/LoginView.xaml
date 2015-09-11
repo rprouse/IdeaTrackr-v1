@@ -8,7 +8,12 @@
             <OnPlatform.iOS>0, 20, 0, 0</OnPlatform.iOS>
         </OnPlatform>
     </ContentPage.Padding>
-    <StackLayout Orientation="Vertical" Padding="8, 8">
+    <StackLayout Orientation="Vertical" Padding="8, 8" BackgroundColor="#3F51B5">
+        <Label Text="Idea Trackr"
+               FontSize="48"
+               TextColor="#FFFFFF"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="CenterAndExpand" />
         <Button Text="Login with Facebook" Command="{Binding FacebookLoginCommand}" />
         <Button Text="Login with Twitter" Command="{Binding TwitterLoginCommand}" />
         <Button Text="Login with Google" Command="{Binding GoogleLoginCommand}" />
