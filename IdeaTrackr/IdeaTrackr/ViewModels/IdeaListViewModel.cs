@@ -39,6 +39,8 @@ namespace IdeaTrackr.ViewModels
                 var token = await LoginToken.Load();
                 if (token != null)
                 {
+                    service.CurrentUser = token.User;
+
                     // If not authorized, this will log the user out
                     await service.SyncAsync();
                 }
@@ -47,6 +49,10 @@ namespace IdeaTrackr.ViewModels
                 if (!App.LoggedIn)
                 {
                     await Navigation.PushModalAsync(new LoginView());
+                }
+                else
+                {
+                    await LoadAsync();
                 }
             }
         }
