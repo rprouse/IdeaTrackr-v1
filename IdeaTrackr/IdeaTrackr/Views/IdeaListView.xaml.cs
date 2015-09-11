@@ -1,8 +1,5 @@
 ﻿using IdeaTrackr.Models;
 using IdeaTrackr.ViewModels;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace IdeaTrackr.Views
@@ -14,27 +11,27 @@ namespace IdeaTrackr.Views
         public IdeaListView()
         {
             InitializeComponent();
+            _viewModel = new IdeaListViewModel(Navigation);
+
+            BindingContext = _viewModel;
 
             #region toolbar
             ToolbarItem tbi = null;
             if (Device.OS == TargetPlatform.iOS)
             {
-                tbi = new ToolbarItem("Add", null, AddIdea, ToolbarItemOrder.Primary, 0);
+                tbi = new ToolbarItem("Add", null, _viewModel.AddIdea, ToolbarItemOrder.Primary, 0);
             }
             else if (Device.OS == TargetPlatform.Android)
             { // BUG: Android doesn't support the icon being null
-                tbi = new ToolbarItem("Add", "ic_menu_add", AddIdea, ToolbarItemOrder.Primary, 0);
+                tbi = new ToolbarItem("Add", "ic_menu_add", _viewModel.AddIdea, ToolbarItemOrder.Primary, 0);
             }
             else if (Device.OS == TargetPlatform.WinPhone)
             {
-                tbi = new ToolbarItem("Add", "add.png", AddIdea, ToolbarItemOrder.Primary, 0);
+                tbi = new ToolbarItem("Add", "add.png", _viewModel.AddIdea, ToolbarItemOrder.Primary, 0);
             }
 
             ToolbarItems.Add(tbi);
             #endregion
-
-            _viewModel = new IdeaListViewModel(Navigation);
-            BindingContext = _viewModel;
         }
 
         protected override async void OnAppearing()
@@ -43,10 +40,7 @@ namespace IdeaTrackr.Views
 
             // reset the 'resume' id, since we just want to re-start here
             ((App)App.Current).ResumeAtIdeaId = "";
-            if (!App.LoggedIn)
-            {
-                await Navigation.PushModalAsync(new LoginView());
-            }
+            await _viewModel.EnsureLoggedIn();
         }
 
         public void OnIdeaTapped(object sender, ItemTappedEventArgs e)
@@ -54,13 +48,6 @@ namespace IdeaTrackr.Views
             // Display detail page
             var idea = e.Item as Idea;
             Navigation.PushAsync(new IdeaView(idea));
-        }
-
-        void AddIdea()
-        {
-            var idea = new Idea();
-            var ideaPage = new IdeaView(idea);
-            Navigation.PushAsync(ideaPage);
         }
     }
 }

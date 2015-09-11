@@ -1,4 +1,5 @@
 ﻿
+using Akavache;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
@@ -11,6 +12,10 @@ namespace IdeaTrackr.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
+            // Initialize Akavache
+            BlobCache.ApplicationName = App.ApplicationName;
+            BlobCache.EnsureInitialized();
 
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init(this, bundle);

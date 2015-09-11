@@ -26,6 +26,7 @@ namespace IdeaTrackr.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Splat.Resource.String.library_name = global::IdeaTrackr.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Resource.String.ApplicationName = global::IdeaTrackr.Droid.Resource.String.ApplicationName;
 			global::Xamarin.Forms.Platform.Resource.String.Hello = global::IdeaTrackr.Droid.Resource.String.Hello;
 		}
@@ -123,6 +124,9 @@ namespace IdeaTrackr.Droid
 			
 			// aapt resource value: 0x7f040000
 			public const int Hello = 2130968576;
+			
+			// aapt resource value: 0x7f040002
+			public const int library_name = 2130968578;
 			
 			static String()
 			{

@@ -6,10 +6,13 @@ namespace IdeaTrackr.Views
 {
     public partial class LoginView : ContentPage
     {
+        LoginViewModel _viewModel;
+
         public LoginView()
         {
             InitializeComponent();
-            BindingContext = new LoginViewModel(Navigation);
+            _viewModel = new LoginViewModel(Navigation);
+            BindingContext = _viewModel;
         }
     }
 }

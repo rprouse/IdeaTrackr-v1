@@ -9,6 +9,8 @@ namespace IdeaTrackr
 {
     public class App : Application
     {
+        public const string ApplicationName = "IdeaTrackr";
+
         static IdeaService _service;
 
         public App()

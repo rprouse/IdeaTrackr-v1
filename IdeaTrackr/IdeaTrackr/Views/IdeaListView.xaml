@@ -9,7 +9,7 @@
         </OnPlatform>
     </ContentPage.Padding>
     <StackLayout Orientation="Vertical">
-        <ActivityIndicator IsVisible="{Binding Loading}" IsRunning="{Binding Loading}" VerticalOptions="CenterAndExpand" />
+        <!-- <ActivityIndicator IsVisible="{Binding Loading}" IsRunning="{Binding Loading}" VerticalOptions="CenterAndExpand" /> -->
         <ListView
         	ItemsSource="{Binding Ideas}"
         	ItemTapped="OnIdeaTapped"

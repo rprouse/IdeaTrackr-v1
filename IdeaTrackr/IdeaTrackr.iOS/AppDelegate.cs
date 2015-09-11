@@ -2,6 +2,7 @@
 
 using Foundation;
 using UIKit;
+using Akavache;
 
 namespace IdeaTrackr.iOS
 {
@@ -27,6 +28,10 @@ namespace IdeaTrackr.iOS
                 Font = UIFont.FromName("HelveticaNeue-Light", (nfloat)20f),
                 TextColor = UIColor.White
             });
+
+            // Initialize Akavache
+            BlobCache.ApplicationName = App.ApplicationName;
+            BlobCache.EnsureInitialized();
 
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
 

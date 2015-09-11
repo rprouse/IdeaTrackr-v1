@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System;
 using Newtonsoft.Json.Linq;
 using Xamarin.Forms;
+using Akavache;
 
 namespace IdeaTrackr.Services
 {
@@ -40,9 +41,9 @@ namespace IdeaTrackr.Services
             get { return _client.CurrentUser; }
             set { _client.CurrentUser = value; }
         }
-        public bool LoggedIn => !string.IsNullOrWhiteSpace(CurrentUser.UserId);
+        public bool LoggedIn => CurrentUser != null && !string.IsNullOrWhiteSpace(CurrentUser.UserId);
 
-        async Task SyncAsync()
+        public async Task SyncAsync()
         {
             try
             {
@@ -51,8 +52,17 @@ namespace IdeaTrackr.Services
             }
             catch (MobileServiceInvalidOperationException msioe)
             {
-                Debug.WriteLine($"INVALID: {msioe.Message}");
+                if (msioe.Response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    Debug.WriteLine($"Authentication Failed: {msioe.Message}");
+                    CurrentUser = null;
+                }
+                else
+                {
+                    Debug.WriteLine($"INVALID: {msioe.Message}");
+                }
             }
+            // TODO: Log out on forbidden
             catch (Exception ex)
             {
                 Debug.WriteLine($"ERROR: {ex.Message}");
@@ -61,7 +71,7 @@ namespace IdeaTrackr.Services
 
         public async Task<IEnumerable<Idea>> GetIdeasAsync()
         {
-            await SyncAsync();
+            //await SyncAsync();
             return await _table.ReadAsync();
         }
 
@@ -86,35 +96,13 @@ namespace IdeaTrackr.Services
             await _table.DeleteAsync(idea);
             await SyncAsync();
         }
+
         public async Task Login(MobileServiceAuthenticationProvider provider)
         {
             var user = await _loginProvider.LoginAsync(MobileServiceClient, provider);
             CurrentUser = user;
-        }
-
-        public async Task Login(MobileServiceAuthenticationProvider provider, string authToken)
-        {
-            JObject tokenObject = CreateTokenObject(provider, authToken);
-            var user = await MobileServiceClient.LoginAsync(provider, tokenObject);
-            CurrentUser = user;
-        }
-
-        static JObject CreateTokenObject(MobileServiceAuthenticationProvider provider, string authToken)
-        {
-            JObject tokenObject = new JObject();
-            switch (provider)
-            {
-                case MobileServiceAuthenticationProvider.Facebook:
-                    tokenObject.Add("access_token", authToken);
-                    break;
-                case MobileServiceAuthenticationProvider.Google:
-                    tokenObject.Add("id_token", authToken);
-                    break;
-                case MobileServiceAuthenticationProvider.Twitter:
-                    tokenObject.Add("???", authToken);  // TODO
-                    break;
-            }
-            return tokenObject;
+            var cache = new LoginToken(user, provider);
+            await cache.Persist(); 
         }
     }
 }

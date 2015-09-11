@@ -1,4 +1,6 @@
 ﻿using IdeaTrackr.Models;
+using IdeaTrackr.Services;
+using IdeaTrackr.Views;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -29,6 +31,26 @@ namespace IdeaTrackr.ViewModels
 
         public ICommand RefreshCommand { get; }
 
+        public async Task EnsureLoggedIn()
+        {
+            if (!App.LoggedIn)
+            {
+                var service = await App.GetIdeaServiceAsync();
+                var token = await LoginToken.Load();
+                if (token != null)
+                {
+                    // If not authorized, this will log the user out
+                    await service.SyncAsync();
+                }
+
+                // If not logged in from cache, show login
+                if (!App.LoggedIn)
+                {
+                    await Navigation.PushModalAsync(new LoginView());
+                }
+            }
+        }
+
         public async Task LoadAsync()
         {
             if (Loading)
@@ -40,6 +62,13 @@ namespace IdeaTrackr.ViewModels
                 var ideas = await service.GetIdeasAsync();
                 Ideas = new ObservableCollection<Idea>(ideas);
             });
+        }
+
+        public void AddIdea()
+        {
+            var idea = new Idea();
+            var ideaPage = new IdeaView(idea);
+            Navigation.PushAsync(ideaPage);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Phone.Controls;
+﻿using Akavache;
+using Microsoft.Phone.Controls;
 
 namespace IdeaTrackr.WinPhone
 {
@@ -8,6 +9,10 @@ namespace IdeaTrackr.WinPhone
         {
             InitializeComponent();
             SupportedOrientations = SupportedPageOrientation.PortraitOrLandscape;
+
+            // Initialize Akavache
+            BlobCache.ApplicationName = IdeaTrackr.App.ApplicationName;
+            BlobCache.EnsureInitialized();
 
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new IdeaTrackr.App());
