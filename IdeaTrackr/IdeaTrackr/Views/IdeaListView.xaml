@@ -8,7 +8,7 @@
             <OnPlatform.iOS>0, 20, 0, 0</OnPlatform.iOS>
         </OnPlatform>
     </ContentPage.Padding>
-    <StackLayout Orientation="Vertical">
+    <ScrollView Orientation="Vertical">
         <!-- <ActivityIndicator IsVisible="{Binding Loading}" IsRunning="{Binding Loading}" VerticalOptions="CenterAndExpand" /> -->
         <ListView
         	ItemsSource="{Binding Ideas}"
@@ -24,5 +24,5 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </StackLayout>
+    </ScrollView>
 </ContentPage>

@@ -5,6 +5,11 @@
     x:Class="IdeaTrackr.App">
     <Application.Resources>
         <ResourceDictionary>
+            <!-- ScrollView -->
+            <Style TargetType="ScrollView">
+                <Setter Property="BackgroundColor" Value="#FFFFFF" />
+            </Style>
+
             <!-- Buttons -->
             <Style TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#FFFFFF" />
