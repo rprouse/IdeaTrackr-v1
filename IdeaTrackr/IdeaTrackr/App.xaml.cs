@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace IdeaTrackr
 {
-    public class App : Application
+    public partial class App : Application
     {
         public const string ApplicationName = "IdeaTrackr";
 
@@ -15,6 +15,8 @@ namespace IdeaTrackr
 
         public App()
         {
+            InitializeComponent();
+
             MainPage = new NavigationPage(new IdeaListView())
             {
                 BarBackgroundColor = StyleKit.DarkPrimaryColor,
@@ -28,7 +30,7 @@ namespace IdeaTrackr
 
         public static async Task<IdeaService> GetIdeaServiceAsync()
         {
-            if(_service == null)
+            if (_service == null)
             {
                 _service = new IdeaService();
                 await _service.InitAsync();
