@@ -14,8 +14,11 @@
                TextColor="#FFFFFF"
                HorizontalOptions="CenterAndExpand"
                VerticalOptions="CenterAndExpand" />
-        <Button Text="Login with Facebook" Command="{Binding FacebookLoginCommand}" />
-        <Button Text="Login with Twitter" Command="{Binding TwitterLoginCommand}" />
-        <Button Text="Login with Google" Command="{Binding GoogleLoginCommand}" />
+        <Button Text="Login with Facebook"
+                Command="{Binding FacebookLoginCommand}" />
+        <Button Text="Login with Twitter"
+                Command="{Binding TwitterLoginCommand}" />
+        <Button Text="Login with Google"
+                Command="{Binding GoogleLoginCommand}" />
     </StackLayout>
 </ContentPage>

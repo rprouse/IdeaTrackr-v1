@@ -3,6 +3,7 @@ using Akavache;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using System.Reflection;
 
 namespace IdeaTrackr.Droid
 {
@@ -12,6 +13,13 @@ namespace IdeaTrackr.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
+#if false
+            // Use for diagnosing image resources in the portable library
+            var assembly = typeof(IdeaTrackr.Extensions.ImageResourceExtension).GetTypeInfo().Assembly;
+            foreach (var res in assembly.GetManifestResourceNames())
+                System.Diagnostics.Debug.WriteLine("found resource: " + res);
+#endif
 
             // Initialize Akavache
             BlobCache.ApplicationName = App.ApplicationName;
