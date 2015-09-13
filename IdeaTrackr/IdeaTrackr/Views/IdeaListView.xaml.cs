@@ -34,10 +34,7 @@ namespace IdeaTrackr.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-
-            // reset the 'resume' id, since we just want to re-start here
-            ((App)App.Current).ResumeAtIdeaId = "";
-            await _viewModel.EnsureLoggedIn();
+            await _viewModel.OnAppearing();
         }
 
         public async void OnIdeaTapped(object sender, ItemTappedEventArgs e)

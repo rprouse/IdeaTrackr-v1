@@ -40,12 +40,17 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\ImageResourceExtension.cs" />
+    <Compile Include="Interfaces\IIdeaProvider.cs" />
+    <Compile Include="Interfaces\ILoading.cs" />
+    <Compile Include="Services\IdeaProvider.cs" />
     <Compile Include="Services\ILoginProvider.cs" />
     <Compile Include="Models\Idea.cs" />
     <Compile Include="Models\BaseNotifyPropertyChanged.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IdeaService.cs" />
+    <Compile Include="Services\LoadingMessage.cs" />
     <Compile Include="Services\LoginToken.cs" />
+    <Compile Include="Services\Messages.cs" />
     <Compile Include="Styles\StyleKit.cs" />
     <Compile Include="Styles\Xinions.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />

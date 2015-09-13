@@ -1,6 +1,5 @@
 ﻿using Akavache;
 using Microsoft.WindowsAzure.MobileServices;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
@@ -27,7 +26,7 @@ namespace IdeaTrackr.Services
             catch (KeyNotFoundException)
             {
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await Delete();
             }

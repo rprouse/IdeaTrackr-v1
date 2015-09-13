@@ -8,8 +8,6 @@ namespace IdeaTrackr.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        internal const string LoggedInMessage = "LoggedIn";
-
         public LoginViewModel(INavigation navigation) : base(navigation)
         {
             FacebookLoginCommand = new Command(async () => await LoginAsync(MobileServiceAuthenticationProvider.Facebook));
@@ -33,11 +31,11 @@ namespace IdeaTrackr.ViewModels
             {
                 // If not authorized, this will log the user out
                 await service.SyncAsync();
-                
+
                 if (App.LoggedIn)
                 {
                     await Navigation.PopModalAsync();
-                    MessagingCenter.Send(this, LoggedInMessage);
+                    MessagingCenter.Send(this, Messages.LoggedIn);
                 }
             }
         }

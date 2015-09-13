@@ -1,4 +1,5 @@
-﻿using IdeaTrackr.Models;
+﻿using IdeaTrackr.Interfaces;
+using IdeaTrackr.Models;
 using IdeaTrackr.Services;
 using IdeaTrackr.Views;
 using System.Collections.ObjectModel;
@@ -10,65 +11,45 @@ namespace IdeaTrackr.ViewModels
 {
     public class IdeaListViewModel : BaseViewModel
     {
-        ObservableCollection<Idea> _ideas;
-
         public IdeaListViewModel(INavigation navigation) : base(navigation)
         {
-            RefreshCommand = new Command(async () => await LoadAsync(), () => !Loading );
+            Ideas = new ObservableCollection<Idea>();
 
-            MessagingCenter.Subscribe<LoginViewModel>(this, LoginViewModel.LoggedInMessage, async (sender) => await LoadAsync());
+            RefreshCommand = new Command(async () => await RefreshAsync(), () => !Loading);
+
+            MessagingCenter.Subscribe<LoginViewModel>(this, Messages.LoggedIn,
+                async (sender) => await LoadAsync());
+            MessagingCenter.Subscribe<IdeaService>(this, Messages.ShowLogin,
+                async (sender) => await ShowLogin());
+            MessagingCenter.Subscribe<IIdeaProvider>(this, Messages.IdeasLoaded,
+                (sender) => sender.CopyIdeasInto(Ideas));
         }
 
-        public ObservableCollection<Idea> Ideas
+        /// <summary>
+        /// Called when the view is appearing
+        /// </summary>
+        /// <returns></returns>
+        public async Task OnAppearing()
         {
-            get { return _ideas; }
-            set
-            {
-                _ideas = value;
-                NotifyPropertyChanged();
-            }
+            // reset the 'resume' id, since we just want to re-start here
+            ((App)App.Current).ResumeAtIdeaId = "";
+
+            var service = await App.GetIdeaServiceAsync();
+            await service.EnsureLoggedIn();
         }
+
+        public ObservableCollection<Idea> Ideas { get; set; }
 
         public ICommand RefreshCommand { get; }
-
-        public async Task EnsureLoggedIn()
-        {
-            if (!App.LoggedIn)
-            {
-                var service = await App.GetIdeaServiceAsync();
-                var token = await LoginToken.Load();
-                if (token != null)
-                {
-                    service.CurrentUser = token.User;
-
-                    // If not authorized, this will log the user out
-                    await service.SyncAsync();
-                }
-
-                // If not logged in from cache, show login
-                if (!App.LoggedIn)
-                {
-                    await ShowLogin();
-                }
-            }
-
-            if (App.LoggedIn)
-            {
-                await LoadAsync();
-            }
-        }
 
         public async Task RefreshAsync()
         {
             if (Loading)
                 return;
 
-            await PerformNetworkOperationAsync(async () =>
-            {
-                var service = await App.GetIdeaServiceAsync();
-                await service.SyncAsync();
-                await PrivateLoadAsync( service );
-            });
+            var service = await App.GetIdeaServiceAsync();
+            await service.SyncAsync();
+            await service.LoadIdeasAsync();
         }
 
         public async Task LoadAsync()
@@ -76,17 +57,8 @@ namespace IdeaTrackr.ViewModels
             if (Loading)
                 return;
 
-            await PerformNetworkOperationAsync(async () =>
-            {
-                var service = await App.GetIdeaServiceAsync();
-                await PrivateLoadAsync(service);
-            });
-        }
-
-        async Task PrivateLoadAsync(IdeaService service)
-        {
-            var ideas = await service.GetIdeasAsync();
-            Ideas = new ObservableCollection<Idea>(ideas);
+            var service = await App.GetIdeaServiceAsync();
+            await service.LoadIdeasAsync();
         }
 
         public async Task AddIdea()
@@ -98,7 +70,6 @@ namespace IdeaTrackr.ViewModels
         {
             var service = await App.GetIdeaServiceAsync();
             await service.Logout();
-            await ShowLogin();
         }
 
         public async Task ShowIdeaView(Idea idea)

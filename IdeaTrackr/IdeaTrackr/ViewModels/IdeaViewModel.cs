@@ -14,21 +14,15 @@ namespace IdeaTrackr.ViewModels
 
             SaveCommand = new Command(async () =>
             {
-                await PerformNetworkOperationAsync(async () =>
-                {
-                    var service = await App.GetIdeaServiceAsync();
-                    await service.SaveIdeaAsync(Idea);
-                });
+                var service = await App.GetIdeaServiceAsync();
+                await service.SaveIdeaAsync(Idea);
                 await Navigation.PopAsync();
             });
 
             DeleteCommand = new Command(async () =>
             {
-                await PerformNetworkOperationAsync(async () =>
-                {
-                    var service = await App.GetIdeaServiceAsync();
-                    await service.DeleteIdeaAsync(Idea);
-                });
+                var service = await App.GetIdeaServiceAsync();
+                await service.DeleteIdeaAsync(Idea);
                 await Navigation.PopAsync();
             });
 
