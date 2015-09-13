@@ -1,11 +1,11 @@
-﻿using IdeaTrackr.Interfaces;
-using IdeaTrackr.Models;
-using IdeaTrackr.Services;
-using IdeaTrackr.Views;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using IdeaTrackr.Interfaces;
+using IdeaTrackr.Models;
+using IdeaTrackr.Services;
+using IdeaTrackr.Views;
 
 namespace IdeaTrackr.ViewModels
 {
@@ -17,12 +17,9 @@ namespace IdeaTrackr.ViewModels
 
             RefreshCommand = new Command(async () => await RefreshAsync(), () => !Loading);
 
-            MessagingCenter.Subscribe<LoginViewModel>(this, Messages.LoggedIn,
-                async (sender) => await LoadAsync());
-            MessagingCenter.Subscribe<IdeaService>(this, Messages.ShowLogin,
-                async (sender) => await ShowLogin());
-            MessagingCenter.Subscribe<IIdeaProvider>(this, Messages.IdeasLoaded,
-                (sender) => sender.CopyIdeasInto(Ideas));
+            Subscribe<IdeaService>(Messages.LoggedIn, async (sender) => await LoadAsync());
+            Subscribe<IdeaService>(Messages.ShowLogin, async (sender) => await ShowLogin());
+            Subscribe<IIdeaProvider>(Messages.IdeasLoaded, (sender) => sender.CopyIdeasInto(Ideas));
         }
 
         /// <summary>

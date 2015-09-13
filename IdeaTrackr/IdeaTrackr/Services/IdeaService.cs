@@ -1,14 +1,14 @@
-﻿using Microsoft.WindowsAzure.MobileServices;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
-using IdeaTrackr.Models;
+using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using Microsoft.WindowsAzure.MobileServices.Sync;
-using System.Diagnostics;
-using System;
 using Xamarin.Forms;
-using System.Collections.ObjectModel;
 using IdeaTrackr.Interfaces;
+using IdeaTrackr.Models;
 
 namespace IdeaTrackr.Services
 {
@@ -123,9 +123,8 @@ namespace IdeaTrackr.Services
                 if (!LoggedIn)
                     ShowLogin();
             }
-
             if (LoggedIn)
-                await LoadIdeasAsync();
+                MessagingCenter.Send(this, Messages.LoggedIn);
         }
 
         void ShowLogin()

@@ -1,7 +1,8 @@
-﻿using IdeaTrackr.Interfaces;
+﻿using System;
+using Xamarin.Forms;
+using IdeaTrackr.Interfaces;
 using IdeaTrackr.Models;
 using IdeaTrackr.Services;
-using Xamarin.Forms;
 
 namespace IdeaTrackr.ViewModels
 {
@@ -12,9 +13,18 @@ namespace IdeaTrackr.ViewModels
         public BaseViewModel(INavigation navigation)
         {
             Navigation = navigation;
+            Subscribe<ILoading>(Messages.Loading, (sender) => Loading = sender.Loading);
+        }
 
-            MessagingCenter.Subscribe<ILoading>(this, Messages.Loading,
-                (sender) => Loading = sender.Loading);
+        /// <summary>
+        /// Subscribe to receive messages from the MessagingCenter
+        /// </summary>
+        /// <typeparam name="TSender"></typeparam>
+        /// <param name="message"></param>
+        /// <param name="callback"></param>
+        protected void Subscribe<TSender>(string message, Action<TSender> callback) where TSender : class
+        {
+            MessagingCenter.Subscribe(this, message, callback);
         }
 
         public INavigation Navigation { get; set; }

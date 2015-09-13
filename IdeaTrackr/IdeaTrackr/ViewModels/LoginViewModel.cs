@@ -1,8 +1,8 @@
-﻿using IdeaTrackr.Services;
-using Microsoft.WindowsAzure.MobileServices;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.WindowsAzure.MobileServices;
 using Xamarin.Forms;
+using IdeaTrackr.Services;
 
 namespace IdeaTrackr.ViewModels
 {
@@ -27,15 +27,15 @@ namespace IdeaTrackr.ViewModels
             await service.Login(provider);
 
             // Handle case where login failed
-            if (App.LoggedIn)
+            if (service.LoggedIn)
             {
                 // If not authorized, this will log the user out
                 await service.SyncAsync();
 
-                if (App.LoggedIn)
+                if (service.LoggedIn)
                 {
                     await Navigation.PopModalAsync();
-                    MessagingCenter.Send(this, Messages.LoggedIn);
+                    MessagingCenter.Send(service, Messages.LoggedIn);
                 }
             }
         }
